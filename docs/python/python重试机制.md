@@ -1,48 +1,52 @@
+# python重试机制
+
 为了避免由于一些网络或等其他不可控因素，而引起的功能性问题。比如在发送请求时，会因为网络不稳定，往往会有请求超时的问题。
 
 这种情况下，我们通常会在代码中加入重试的代码。重试的代码本身不难实现，但如何写得优雅、易用，是我们要考虑的问题。
 
-这里要给大家介绍的是一个第三方库 - Tenacity （标题中的重试机制并并不准确，它不是 Python 的内置模块，因此并不能称之为机制），它实现了几乎我们可以使用到的所有重试场景，比如：
+这里要给大家介绍的是一个第三方库 - [Tenacity](https://github.com/jd/tenacity) （标题中的重试机制并并不准确，它不是 Python 的内置模块，因此并不能称之为机制），它实现了几乎我们可以使用到的所有重试场景，比如：
 
-在什么情况下才进行重试？
-重试几次呢?
-重试多久后结束？
-每次重试的间隔多长呢？
-重试失败后的回调？
+* 在什么情况下才进行重试？
+* 重试几次呢?
+* 重试多久后结束？
+* 每次重试的间隔多长呢？
+* 重试失败后的回调？
+
 在使用它之前 ，先要安装它
 
 ```bash
 $ pip install tenacity
 ```
 
-1. 最基本的重试
-   无条件重试，重试之间无间隔
+## 1. 最基本的重试
+
+无条件重试，重试之间无间隔
 
 ```python
 from tenacity import retry
 
 @retry
 def test_retry():
-print("等待重试，重试无间隔执行...")
-raise Exception
+   print("等待重试，重试无间隔执行...")
+   raise Exception
 
 test_retry()
 ```
 
-无条件重试，但是在重试之前要等待 2 秒
+## 2. 无条件重试，但是在重试之前要等待 2 秒
 
 ```python
 from tenacity import retry, wait_fixed
 
 @retry(wait=wait_fixed(2))
 def test_retry():
-print("等待重试...")
-raise Exception
+   print("等待重试...")
+   raise Exception
 
 test_retry()
 ```
 
-## 2. 设置停止基本条件
+## 3. 设置停止基本条件
 
 只重试 7 次
 
@@ -51,8 +55,8 @@ from tenacity import retry, stop_after_attempt
 
 @retry(stop=stop_after_attempt(7))
 def test_retry():
-print("等待重试...")
-raise Exception
+   print("等待重试...")
+   raise Exception
 
 test_retry()
 ```
@@ -64,8 +68,8 @@ from tenacity import retry, stop_after_delay
 
 @retry(stop=stop_after_delay(10))
 def test_retry():
-print("等待重试...")
-raise Exception
+   print("等待重试...")
+   raise Exception
 
 test_retry()
 ```
@@ -77,14 +81,15 @@ from tenacity import retry, stop_after_delay, stop_after_attempt
 
 @retry(stop=(stop_after_delay(10) | stop_after_attempt(7)))
 def test_retry():
-print("等待重试...")
-raise Exception
+   print("等待重试...")
+   raise Exception
 
 test_retry()
 ```
 
-3. 设置何时进行重试
-   在出现特定错误/异常（比如请求超时）的情况下，再进行重试
+## 4. 设置何时进行重试
+
+在出现特定错误/异常（比如请求超时）的情况下，再进行重试
 
 ```python
 from requests import exceptions
@@ -92,8 +97,8 @@ from tenacity import retry, retry_if_exception_type
 
 @retry(retry=retry_if_exception_type(exceptions.Timeout))
 def test_retry():
-print("等待重试...")
-raise exceptions.Timeout
+   print("等待重试...")
+   raise exceptions.Timeout
 
 test_retry()
 ```
@@ -106,18 +111,19 @@ test_retry()
 from tenacity import retry, stop_after_attempt, retry_if_result
 
 def is_false(value):
-return value is False
+   return value is False
 
 @retry(stop=stop_after_attempt(3),
 retry=retry_if_result(is_false))
 def test_retry():
-return False
+   return False
 
 test_retry()
 ```
 
-4. 重试后错误重新抛出
-   当出现异常后，tenacity 会进行重试，若重试后还是失败，默认情况下，往上抛出的异常会变成 RetryError，而不是最根本的原因。
+## 5. 重试后错误重新抛出
+
+当出现异常后，tenacity 会进行重试，若重试后还是失败，默认情况下，往上抛出的异常会变成 RetryError，而不是最根本的原因。
 
 因此可以加一个参数（reraise=True），使得当重试失败后，往外抛出的异常还是原来的那个。
 
@@ -126,43 +132,42 @@ from tenacity import retry, stop_after_attempt
 
 @retry(stop=stop_after_attempt(7), reraise=True)
 def test_retry():
-print("等待重试...")
-raise Exception
+   print("等待重试...")
+   raise Exception
 
 test_retry()
 ```
 
-5. 设置回调函数
-   当最后一次重试失败后，可以执行一个回调函数
+## 6. 设置回调函数
+
+当最后一次重试失败后，可以执行一个回调函数
 
 ```python
 from tenacity import \*
 
 def return_last_value(retry_state):
-print("执行回调函数")
-return retry_state.outcome.result() # 表示返回原函数的返回值
+   print("执行回调函数")
+   return retry_state.outcome.result() # 表示返回原函数的返回值
 
 def is_false(value):
-return value is False
+   return value is False
 
 @retry(stop=stop_after_attempt(3),
-retry_error_callback=return_last_value,
-retry=retry_if_result(is_false))
-def test_retry():
-print("等待重试中...")
-return False
+   retry_error_callback=return_last_value,
+   retry=retry_if_result(is_false))
+   def test_retry():
+   print("等待重试中...")
+   return False
 
-print(test_retry())
+   print(test_retry())
 ```
 
 输出如下
 
+```
 等待重试中...
 等待重试中...
 等待重试中...
 执行回调函数
 False
-
-```
-
 ```

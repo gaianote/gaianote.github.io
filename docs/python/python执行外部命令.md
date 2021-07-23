@@ -8,9 +8,7 @@ p = subprocess.Popen(
     cmd, stdout=subprocess.PIPE, shell=True)
 print(p.pid)
 # p.kill()
-
+p.communicate()
 ```
-
-## p.communicate()
 
 ## python 关闭进程
