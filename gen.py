@@ -52,7 +52,5 @@ def gen_index(start_path):
 
 
 if __name__ == "__main__":
-    start_path = "docs/weidian"
-    start_path = "docs/python"
-    # current_path = "docs"
-    gen_index(start_path)
+    for start_path in ["docs/weidian","docs/python","docs/selenium","docs/tools","docs"]:
+        gen_index(start_path)
