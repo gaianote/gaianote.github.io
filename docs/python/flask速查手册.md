@@ -13,3 +13,9 @@ python url decode
 from urllib.parse import unquote
 unquote("a%2BM0bNSZVRWTKVb6OtprBw%3D%3D")
 ```
+
+## 让 jsonify()结果返回中文
+
+```python
+app.config['JSON_AS_ASCII'] = False
+```
