@@ -42,10 +42,12 @@ def gen_index(start_path):
                 and filename not in ("README.md")
             ):
                 if current_path != path:  # 当进入了新的文件夹路径
+                    print(current_path,path)
                     # 1. 把dirname名称作为目录名称
                     write_dir_index(path, filename, base_path)
                     # 2. 写 第一个 filename
                     write_file_index(path, filename, base_path)
+                    current_path = path
                 else:
                     # 写 其他的 filename
                     write_file_index(path, filename, base_path)
