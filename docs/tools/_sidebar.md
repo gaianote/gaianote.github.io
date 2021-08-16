@@ -1,5 +1,5 @@
-  - [科学上网](tools/科学上网.md)
   - [chrome使用技巧](tools/chrome使用技巧.md)
-  - [我的工作流](tools/我的工作流.md)
   - [code-server](tools/code-server.md)
   - [docsify](tools/docsify.md)
+  - [我的工作流](tools/我的工作流.md)
+  - [科学上网](tools/科学上网.md)
