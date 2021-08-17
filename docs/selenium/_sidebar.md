@@ -1,4 +1,4 @@
-  - [10. 使用selenium进行调试](selenium/10. 使用selenium进行调试.md)
+  - [10.使用selenium进行调试](selenium/10. 使用selenium进行调试.md)
   - [1.环境部署](selenium/1.环境部署.md)
   - [2.元素定位与页面等待](selenium/2.元素定位与页面等待.md)
   - [3.cookie的传递与保存](selenium/3.cookie的传递与保存.md)
