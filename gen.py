@@ -35,7 +35,7 @@ def gen_index(start_path):
     if os.path.exists(f"{current_path}/_sidebar.md"):
         os.remove(f"{current_path}/_sidebar.md")
     for path, dir_list, file_list in os.walk(current_path):
-        file_list.sort(key=lambda parameter_list: parameter_list[0])
+        file_list.sort(key=lambda parameter_list: parameter_list[0:1])
         for filename in file_list:
             if (
                 filename.endswith(".md")
