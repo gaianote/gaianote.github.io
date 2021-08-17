@@ -1,8 +1,9 @@
-  - [10.使用selenium进行调试](selenium/10. 使用selenium进行调试.md)
+
   - [1.环境部署](selenium/1.环境部署.md)
   - [2.元素定位与页面等待](selenium/2.元素定位与页面等待.md)
   - [3.cookie的传递与保存](selenium/3.cookie的传递与保存.md)
   - [4.下拉选择框](selenium/4.下拉选择框.md)
   - [5.tap页切换](selenium/5.tap页切换.md)
   - [9.爬虫反侦测](selenium/9.爬虫反侦测.md)
+  - [10.使用selenium进行调试](selenium/10. 使用selenium进行调试.md)
   - [chrome_options详解](selenium/chrome_options详解.md)
