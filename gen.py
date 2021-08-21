@@ -26,6 +26,16 @@ def write_dir_index(path, filename, base_path):
         f.write(line)
 
 
+def is_in_ingnore_dirs(path):
+    """
+    是否包含忽略的文件夹,如果包含则返回 True
+    """
+    for dirname in ingnore_dirs:
+        if path.find(f"docs/{dirname}") != -1:
+            return True
+    return False
+
+
 def gen_index(start_path):
     """
     自动化生成博客目录
@@ -41,9 +51,9 @@ def gen_index(start_path):
                 filename.endswith(".md")
                 and not filename.startswith("_")
                 and filename not in ("README.md")
+                and not is_in_ingnore_dirs(path)
             ):
                 if current_path != path:  # 当进入了新的文件夹路径
-                    print(current_path,path)
                     # 1. 把dirname名称作为目录名称
                     write_dir_index(path, filename, base_path)
                     # 2. 写 第一个 filename
@@ -54,6 +64,21 @@ def gen_index(start_path):
                     write_file_index(path, filename, base_path)
 
 
+def get_dirs():
+    """
+    获得要gen的目录
+    """
+    dirs = []
+    for path, dir_list, file_list in os.walk("docs"):
+        if path.find("_") == -1 and path != "docs":
+            dirs.append(path)
+    return dirs
+
+
 if __name__ == "__main__":
-    for start_path in ["docs/weidian","docs/python","docs/selenium","docs/tools","docs"]:
+    ingnore_dirs = ["weidian"]
+    gen_index("docs")
+    ingnore_dirs = []
+    dirs = get_dirs()
+    for start_path in get_dirs():
         gen_index(start_path)

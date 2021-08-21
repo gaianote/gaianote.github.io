@@ -8,6 +8,7 @@
   - [requests](python/requests.md)
   - [代码片段](python/代码片段.md)
   - [协程与异步IO](python/协程与异步IO.md)
+  - [命名空间和作用域](python/命名空间和作用域.md)
   - [多进程multiprocess](python/多进程multiprocess.md)
   - [异步爬虫aiohttp库](python/异步爬虫aiohttp库.md)
   - [时间与时间戳](python/时间与时间戳.md)
