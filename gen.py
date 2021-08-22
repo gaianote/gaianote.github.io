@@ -72,13 +72,16 @@ def get_dirs():
     for path, dir_list, file_list in os.walk("docs"):
         if path.find("_") == -1 and path != "docs":
             dirs.append(path)
+        print(path)
     return dirs
 
 
 if __name__ == "__main__":
-    ingnore_dirs = ["weidian"]
+    # 在主页忽略生成
+    ingnore_dirs = ["weidian","private"]
     gen_index("docs")
+    # 在子页生成
     ingnore_dirs = []
-    dirs = get_dirs()
     for start_path in get_dirs():
+        print("gen",start_path)
         gen_index(start_path)
