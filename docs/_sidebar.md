@@ -9,7 +9,7 @@
     - [chrome_options详解](selenium/chrome_options详解.md)
     - [selenium](selenium/selenium.md)
   - [devops](devops/README.md)
-    - [代码静态检查工具](devops/代码静态检查工具.md)
+    - [代码静态检查工具sonarQube](devops/代码静态检查工具sonarQube.md)
   - [tools](tools/README.md)
     - [chrome使用技巧](tools/chrome使用技巧.md)
     - [code-server](tools/code-server.md)

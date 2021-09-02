@@ -1,1 +1,1 @@
-  - [代码静态检查工具](devops/代码静态检查工具.md)
+  - [代码静态检查工具sonarQube](devops/代码静态检查工具sonarQube.md)
