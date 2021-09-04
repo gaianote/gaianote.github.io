@@ -8,6 +8,8 @@
     - [9.爬虫反侦测](selenium/9.爬虫反侦测.md)
     - [chrome_options详解](selenium/chrome_options详解.md)
     - [selenium](selenium/selenium.md)
+  - [待分类](待分类/README.md)
+    - [chrome插件开发](待分类/chrome插件开发.md)
   - [devops](devops/README.md)
     - [代码静态检查工具sonarQube](devops/代码静态检查工具sonarQube.md)
   - [tools](tools/README.md)
