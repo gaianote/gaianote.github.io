@@ -8,7 +8,50 @@
 
 官方文档: [chrome.cookies](https://developer.chrome.com/docs/extensions/reference/cookies/)
 
+我们可以在 backgroud 页直接调试 chrome API
 
+![](_media/2021-09-04-17-13-22.png)
+
+### 使用要点
+
+1. 需要在background页进行调用,content页没有充足的权限
+
+
+2. 要使用 cookie API，您必须在清单中声明“cookies”权限，以及您要访问其 cookie 的任何主机的主机权限。例如：
+
+```json
+{
+  "name": "My extension",
+  ...
+  "permissions": [
+    "cookies",
+    "*://*.google.com"
+  ],
+  ...
+}
+```
+
+
+
+### API
+
+
+Methods
+get
+get(details: CookieDetails): Promise<object>
+get(details: CookieDetails, callback: function): void
+getAll
+getAll(details: object): Promise<object>
+getAll(details: object, callback: function): void
+getAllCookieStores
+getAllCookieStores(): Promise<object>
+getAllCookieStores(callback: function): void
+remove
+remove(details: CookieDetails): Promise<object>
+remove(details: CookieDetails, callback?: function): void
+set
+set(details: object): Promise<object>
+set(details: object, callback?: function): void
 
 ## 参考文档
 
