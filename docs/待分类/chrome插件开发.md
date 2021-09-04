@@ -37,23 +37,60 @@
 
 
 Methods
+
 get
+```
 get(details: CookieDetails): Promise<object>
 get(details: CookieDetails, callback: function): void
+```
 getAll
+```
 getAll(details: object): Promise<object>
 getAll(details: object, callback: function): void
+```
 getAllCookieStores
+```
 getAllCookieStores(): Promise<object>
 getAllCookieStores(callback: function): void
+```
 remove
+```
 remove(details: CookieDetails): Promise<object>
 remove(details: CookieDetails, callback?: function): void
+```
 set
+```
 set(details: object): Promise<object>
 set(details: object, callback?: function): void
+```
 
 ## 参考文档
 
 - https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html
 - [用 chrome 插件实现 cookie 同步](https://blog.csdn.net/u013613428/article/details/93192961)
+
+
+```javascript
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
+{
+	console.log('收到来自content-script的消息：');
+	console.log("debug:",request, sender, sendResponse);
+	console.log(sender.url)
+	// chrome.cookies.getAll({ url: sender.url},function(ctx){
+	// 	console.log(JSON.stringify(ctx))
+	// 	// sendResponse('我是后台，我已收到你的消息：' + JSON.stringify({}));
+	// 	sendResponse('我是后台，我已收到你的消息：' + JSON.stringify(ctx));
+	// })
+	
+
+	for(var i=0;i<cookies.length;i++){
+		console.log(cookies[i])
+		delete cookies[i].hostOnly
+		delete cookies[i].session
+		cookies[i].url = sender.url
+		chrome.cookies.set(cookies[i],function(){})
+	}
+	
+
+});
+```
